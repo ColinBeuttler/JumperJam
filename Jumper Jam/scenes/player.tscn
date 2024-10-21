@@ -1,0 +1,151 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxby0q4hfamx2"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_bkg3l"]
+[ext_resource type="Texture2D" uid="uid://c8uqcpsba27q3" path="res://Assets/textures/character/Skin1Idle.png" id="1_o6swo"]
+[ext_resource type="Texture2D" uid="uid://dud6yttgly05v" path="res://Assets/textures/character/Skin1Jump.png" id="2_xe7nm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpvve"]
+size = Vector2(47, 22.75)
+
+[sub_resource type="Animation" id="Animation_60amo"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_o6swo")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, -47)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.35, 0.35)]
+}
+
+[sub_resource type="Animation" id="Animation_d78me"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_o6swo")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, -47)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.35, 0.35)]
+}
+
+[sub_resource type="Animation" id="Animation_kdpwx"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_xe7nm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -50)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.35, 0.35)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fpi4j"]
+_data = {
+"RESET": SubResource("Animation_d78me"),
+"fall": SubResource("Animation_60amo"),
+"jump": SubResource("Animation_kdpwx")
+}
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 100
+collision_mask = 2
+script = ExtResource("1_bkg3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -47)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_o6swo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_dpvve")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fpi4j")
+}
