@@ -1,13 +1,22 @@
 extends Camera2D
 
 var player: Player = null
+var viewport_size
+
 
 func _ready():
-	global_position.x = get_viewport_rect().size.x / 2
+	viewport_size  = get_viewport_rect().size
+	global_position.x = viewport_size.x / 2
 	
+	limit_bottom = viewport_size.y
+	limit_left = 0
+	limit_right = viewport_size.x
 
 func _process(delta):
-	pass
+	if player:
+		var limit_distance = 420
+		if limit_bottom > player.global_position.y + limit_distance:
+			limit_bottom = player.global_position.y + limit_distance
 
 func setup_camera(_player: Player):
 	if _player:
