@@ -1,12 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm10kcklfdmij"]
+[gd_scene load_steps=7 format=3 uid="uid://dm10kcklfdmij"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ac3ag"]
-[ext_resource type="PackedScene" uid="uid://cxby0q4hfamx2" path="res://scenes/player.tscn" id="1_y1p4s"]
+[ext_resource type="PackedScene" uid="uid://bphm78ilotrvy" path="res://scenes/level_generator.tscn" id="3_fbnw3"]
+[ext_resource type="Texture2D" uid="uid://cfgfc4m4m6j1q" path="res://Assets/textures/bg/Ground.png" id="3_yiaom"]
+[ext_resource type="Texture2D" uid="uid://cije8pqp2rxu2" path="res://Assets/textures/bg/Layer1.png" id="4_7cw0b"]
+[ext_resource type="Texture2D" uid="uid://bywiv1nxiqikv" path="res://Assets/textures/bg/Layer2.png" id="5_mbd0g"]
+[ext_resource type="Texture2D" uid="uid://cx05t1d7f0v7e" path="res://Assets/textures/bg/Layer3.png" id="6_0mswc"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ac3ag")
 
-[node name="player" parent="." instance=ExtResource("1_y1p4s")]
-position = Vector2(279, 881)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="PlatformParent" type="Node2D" parent="."]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(0, 1935)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("4_7cw0b")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(0, 1935)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("5_mbd0g")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.85, 0.85)
+motion_mirroring = Vector2(0, 1935)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("6_0mswc")
+centered = false
+
+[node name="LevelGenerator" parent="." instance=ExtResource("3_fbnw3")]
+
+[node name="GroundSprite" type="Sprite2D" parent="."]
+position = Vector2(270, 960)
+scale = Vector2(1, 0.7)
+texture = ExtResource("3_yiaom")
+offset = Vector2(0, -61)
