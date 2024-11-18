@@ -149,3 +149,9 @@ shape = SubResource("RectangleShape2D_dpvve")
 libraries = {
 "": SubResource("AnimationLibrary_fpi4j")
 }
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.499997, -10.25)
+scale = Vector2(3.05, 1.475)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

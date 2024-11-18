@@ -1,3 +1,92 @@
-[gd_scene format=3 uid="uid://dvbe004ex8wcw"]
+[gd_scene load_steps=6 format=3 uid="uid://dvbe004ex8wcw"]
+
+[ext_resource type="Script" path="res://scripts/screens.gd" id="1_ga2xy"]
+[ext_resource type="Texture2D" uid="uid://c5xybo11cy0lx" path="res://Assets/textures/ui/gear.png" id="1_gj40k"]
+[ext_resource type="PackedScene" uid="uid://dah6vn4by4dfm" path="res://scenes/title_screen.tscn" id="3_did8l"]
+[ext_resource type="PackedScene" uid="uid://ccoyada3strda" path="res://scenes/pause_screen.tscn" id="4_yj1cf"]
+[ext_resource type="PackedScene" uid="uid://b33bahgye6lx8" path="res://scenes/game_over_screen.tscn" id="5_0r3ky"]
 
 [node name="Screens" type="CanvasLayer"]
+process_mode = 3
+layer = 101
+script = ExtResource("1_ga2xy")
+
+[node name="Debug" type="Control" parent="."]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ConsoleLog" type="Control" parent="Debug" groups=["debug_console"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackBG" type="ColorRect" parent="Debug/ConsoleLog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.666667)
+
+[node name="BuildNoLabel" type="Label" parent="Debug/ConsoleLog"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -255.0
+offset_top = 16.0
+offset_right = 257.0
+offset_bottom = 45.0
+grow_horizontal = 2
+text = "Build 0.1.0"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Debug/ConsoleLog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 54.0
+offset_right = -30.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Debug/ConsoleLog/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LogLabel" type="Label" parent="Debug/ConsoleLog/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="ToggleConsole" type="TextureButton" parent="Debug"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -54.0
+offset_right = 54.0
+grow_vertical = 0
+texture_normal = ExtResource("1_gj40k")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TitleScreen" parent="." instance=ExtResource("3_did8l")]
+
+[node name="PauseScreen" parent="." instance=ExtResource("4_yj1cf")]
+
+[node name="GameOverScreen" parent="." instance=ExtResource("5_0r3ky")]
+
+[connection signal="pressed" from="Debug/ToggleConsole" to="." method="_on_toggle_console_pressed"]

@@ -22,8 +22,10 @@ func _ready():
 	viewport_size = get_viewport_rect().size 
 	generated_platform_count = 0
 	start_platform_y = viewport_size.y - (y_distance_between_plaforms * 2)
-	generate_level(start_platform_y, true)
 
+
+func start_generation():
+	generate_level(start_platform_y, true)
 
 func _process(_delta):
 	if player:
@@ -49,11 +51,10 @@ func generate_level(start_y: float, generate_ground: bool):
 	for i in range(level_size):
 		var max_x_position = viewport_size.x - platform_width
 		var random_x = randf_range(0.0, max_x_position)
-		var location: Vector2 = Vector2.ZERO
 		
+		var location: Vector2 = Vector2.ZERO
 		location.x = random_x
 		location.y = start_y - (y_distance_between_plaforms * i)
-		
 		create_platorm(location)
 		generated_platform_count += 1
 		
@@ -63,3 +64,9 @@ func create_platorm(location: Vector2):
 	platform.global_position = location
 	platform_parent.add_child(platform)
 	return platform
+
+func reset_level():
+	generated_platform_count = 0
+	for platform in platform_parent.get_children():
+		platform.queue_free()
+		
